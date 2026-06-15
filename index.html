@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koala Tênis Score - Placar Inteligente de Tênis</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #151d30;
+            --text-color: #f3f4f6;
+            --text-muted: #9ca3af;
+            --primary-neon: #00f2fe; /* Ciano Neon */
+            --secondary-neon: #ff5e3a; /* Laranja Neon */
+            --accent-green: #39ff14;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #151d30 0%, #0b0f19 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid rgba(0, 242, 254, 0.1);
+        }
+
+        .badge {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--primary-neon);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        h1 span.title-koala { color: var(--text-color); }
+        h1 span.title-score {
+            background: linear-gradient(to right, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            font-style: italic;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00cdac 0%, #02a14d 100%);
+            color: white;
+            box-shadow: 0 4px 20px rgba(2, 161, 77, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(2, 161, 77, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-neon);
+            color: var(--primary-neon);
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-neon);
+            margin: 15px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 242, 254, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--primary-neon);
+        }
+
+        .feature-card h3.orange-accent {
+            color: var(--secondary-neon);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .steps-section {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 50px 40px;
+            margin-bottom: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .step-item {
+            display: flex;
+            margin-bottom: 35px;
+            gap: 20px;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-neon) 0%, #0072ff 100%);
+            color: #0b0f19;
+            font-weight: 800;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .specs-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .specs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .specs-label {
+            font-weight: 600;
+            color: var(--primary-neon);
+            width: 30%;
+        }
+
+        .specs-value {
+            color: var(--text-color);
+        }
+
+        .footer-cta {
+            text-align: center;
+            background: linear-gradient(135deg, #151d30 0%, #0b0f19 100%);
+            padding: 60px 20px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 80px;
+        }
+
+        .footer-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-cta p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .tagline { font-size: 1.1rem; }
+            .step-item { flex-direction: column; gap: 10px; }
+            .specs-table width { width: 100%; }
+            .specs-table td { display: block; width: 100%; }
+            .specs-label { padding-bottom: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="badge">🎾 Aplicativo Premium para Quadras</div>
+        <h1><span class="title-koala">Koala Tênis</span> <span class="title-score">Score</span></h1>
+        <p class="tagline">O placar de tênis inteligente que mantém seus olhos na bola e sua mente no jogo.</p>
+        
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">🤖 Baixar no Google Play</a>
+            <a href="#" class="btn btn-secondary">📥 Download Direto (APK)</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- SEÇÃO: PRINCIPAIS DIFERENCIAIS -->
+        <section id="features">
+            <h2 class="section-title">Por que escolher o Koala Tênis Score?</h2>
+            <div class="features-grid">
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔌</span>
+                    <h3>Botões Bluetooth (BLE)</h3>
+                    <p>Pareie botões físicos portáteis (de pulso ou rede) e marque pontos com um clique direto da quadra. Chega de caminhar até o celular na grade!</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🗣️</span>
+                    <h3 class="orange-accent">Anúncios de Voz Inteligentes</h3>
+                    <p>O app narra o placar por áudio em tempo real ("15 a 30", "Deuce", "Vantagem") através do celular ou caixa de som Bluetooth. Foco total no rali.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🧠</span>
+                    <h3>Memória Inteligente</h3>
+                    <p>Início super rápido! Suas preferências e nomes dos jogadores do último treino ficam salvos localmente. É abrir, entrar em quadra e jogar.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3 class="orange-accent">Design Premium Dark</h3>
+                    <p>Interface de altíssimo contraste baseada em tons escuros e cores neon (ciano e laranja). Excelente leitura sob luz solar forte.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🚫</span>
+                    <h3>Anúncios Não Intrusivos</h3>
+                    <p>Integração limpa via Google AdMob. Os anúncios respeitam sua concentração e nunca aparecem no meio de uma partida ou game.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔄</span>
+                    <h3 class="orange-accent">Gestão de Quadra</h3>
+                    <p>Controla automaticamente a virada de lados nas trocas de games e indica visualmente quem deve sacar e o lado correto (Vantagem ou Deuce).</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO: GUIA PASSO A PASSO -->
+        <section id="how-it-works">
+            <h2 class="section-title">Como Usar o Aplicativo</h2>
+            <div class="steps-section">
+                
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Configuração da Partida</h4>
+                        <p>Defina os nomes dos competidores, o formato do jogo (Melhor de 3 ou 5 sets) e as regras de desempate (Tie-break e vantagem). Se tiver os botões BLE, conecte-os aqui.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>O Placar em Ação</h4>
+                        <p>Pontue tocando diretamente nos grandes cards na tela ou simplesmente clique no seu botão físico portátil sem sair da sua posição de jogo.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Fim de Jogo Elegante</h4>
+                        <p>O app gerencia todas as transições complexas do tênis. Ao fechar a partida, uma tela de vitória consagra o grande campeão com estilo.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO: ESPECIFICAÇÕES TÉCNICAS -->
+        <section id="specs">
+            <h2 class="section-title">Especificações e Requisitos</h2>
+            <table class="specs-table">
+                <tr>
+                    <td class="specs-label">Plataforma</td>
+                    <td class="specs-value">Android (Compatível com Android 11, 12, 13, 14 e superiores)</td>
+                </tr>
+                <tr>
+                    <td class="specs-label">Conectividade</td>
+                    <td class="specs-value">Bluetooth Low Energy (BLE) para suporte a botões físicos</td>
+                </tr>
+                <tr>
+                    <td class="specs-label">Tecnologia</td>
+                    <td class="specs-value">Desenvolvido em React Native com motor Hermes (inicialização instantânea e economia de bateria)</td>
+                </tr>
+                <tr>
+                    <td class="specs-label">Tamanho</td>
+                    <td class="specs-value">Leve e compacto (~15 MB de download real)</td>
+                </tr>
+                <tr>
+                    <td class="specs-label">Privacidade</td>
+                    <td class="specs-value">Segurança garantida. Dados de pareamento e configurações processados estritamente local no aparelho. Sem envio a servidores externos.</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- SEÇÃO: FINAL CTA -->
+        <section class="footer-cta">
+            <h2>Pronto para revolucionar seu jogo de tênis?</h2>
+            <p>Baixe o Koala Tênis Score agora mesmo e tenha a experiência das grandes arenas na sua quadra.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">🤖 Baixar Grátis na Play Store</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Koala Tênis Score. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
