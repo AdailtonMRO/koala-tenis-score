@@ -72,8 +72,9 @@
             font-style: italic;
         }
 
+        /* --- BOTÕES DE DOWNLOAD OCULTOS --- */
         .cta-buttons {
-            display: flex;
+            display: none !important; /* Esconde os botões temporariamente */
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
@@ -138,7 +139,7 @@
             border-radius: 2px;
         }
 
-        /* --- CARROSSEL DINÂMICO DE SCREENSHOTS --- */
+        /* --- CARROSSEL DE SCREENSHOTS --- */
         .screenshot-container {
             margin: 50px auto 80px auto;
             padding: 20px 0;
@@ -156,7 +157,6 @@
             border-radius: 16px;
         }
 
-        /* Customização da barra de rolagem para navegadores Webkit (Chrome/Safari) */
         .screenshot-slider::-webkit-scrollbar {
             height: 8px;
         }
@@ -170,7 +170,7 @@
         }
 
         .screenshot-card {
-            flex: 0 0 260px; /* Largura perfeita para simular a tela do smartphone */
+            flex: 0 0 260px;
             scroll-snap-align: center;
             background-color: var(--card-bg);
             border-radius: 24px;
@@ -203,7 +203,7 @@
             gap: 8px;
         }
 
-        /* --- RESTO DOS ESTILOS --- */
+        /* --- DIFERENCIAIS --- */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -239,6 +239,7 @@
         .feature-card h3.orange-accent { color: var(--secondary-neon); }
         .feature-card p { color: var(--text-muted); font-size: 1rem; }
 
+        /* --- PASSO A PASSO --- */
         .steps-section {
             background-color: var(--card-bg);
             border-radius: 24px;
@@ -258,6 +259,7 @@
         .step-content h4 { font-size: 1.2rem; margin-bottom: 8px; }
         .step-content p { color: var(--text-muted); }
 
+        /* --- ESPECIFICAÇÕES --- */
         .specs-table {
             width: 100%; border-collapse: collapse; margin-top: 20px;
             background-color: var(--card-bg); border-radius: 12px; overflow: hidden;
@@ -267,12 +269,25 @@
         .specs-label { font-weight: 600; color: var(--primary-neon); width: 30%; }
         .specs-value { color: var(--text-color); }
 
+        /* --- SECÇÃO DE LANÇAMENTO BREVE --- */
         .footer-cta {
             text-align: center; background: linear-gradient(135deg, #151d30 0%, #0b0f19 100%);
             padding: 60px 20px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05); margin-top: 80px;
         }
         .footer-cta h2 { font-size: 2rem; margin-bottom: 15px; }
-        .footer-cta p { color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem; }
+        .footer-cta p { color: var(--text-muted); margin-bottom: 10px; font-size: 1.1rem; }
+        .coming-soon-badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 24px;
+            background: rgba(255, 94, 58, 0.1);
+            color: var(--secondary-neon);
+            border: 1px solid rgba(255, 94, 58, 0.3);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
 
         footer {
             text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.9rem;
@@ -291,10 +306,11 @@
 <body>
 
     <header>
-        <div class="badge">🎾 Aplicativo Premium para Quadras</div>
+        <div class="badge">🎾 Em Desenvolvimento / Lançamento Breve</div>
         <h1><span class="title-koala">Koala Tênis</span> <span class="title-score">Score</span></h1>
         <p class="tagline">O placar de tênis inteligente que mantém seus olhos na bola e sua mente no jogo.</p>
         
+        <!-- Para voltar a mostrar os botões no futuro, basta remover a linha 'display: none !important;' da classe .cta-buttons no CSS acima -->
         <div class="cta-buttons">
             <a href="#" class="btn btn-primary">🤖 Baixar no Google Play</a>
             <a href="#" class="btn btn-secondary">📥 Download Direto (APK)</a>
@@ -303,7 +319,7 @@
 
     <main>
         
-        <!-- SEÇÃO CARROSSEL DINÂMICO (SCREENSHOTS DO APLICATIVO) -->
+        <!-- SEÇÃO CARROSSEL DINÂMICO -->
         <section id="app-screenshots">
             <h2 class="section-title">Conheça a Interface do App</h2>
             <div class="screenshot-container">
@@ -428,13 +444,11 @@
             </table>
         </section>
 
-        <!-- SEÇÃO: FINAL CTA -->
+        <!-- SEÇÃO: FINAL CTA (MODIFICADA PARA PRÉ-LANÇAMENTO) -->
         <section class="footer-cta">
-            <h2>Pronto para revolucionar seu jogo de tênis?</h2>
-            <p>Baixe o Koala Tênis Score agora mesmo e tenha a experiência das grandes arenas na sua quadra.</p>
-            <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">🤖 Baixar Grátis na Play Store</a>
-            </div>
+            <h2>Gostou do Koala Tênis Score?</h2>
+            <p>O aplicativo está a passar pelos últimos testes em quadra e estará disponível muito brevemente.</p>
+            <div class="coming-soon-badge">🚀 LANÇAMENTO EM BREVE</div>
         </section>
 
     </main>
