@@ -12,7 +12,6 @@
             --text-muted: #9ca3af;
             --primary-neon: #00f2fe; /* Ciano Neon */
             --secondary-neon: #ff5e3a; /* Laranja Neon */
-            --accent-green: #39ff14;
         }
 
         * {
@@ -139,6 +138,72 @@
             border-radius: 2px;
         }
 
+        /* --- CARROSSEL DINÂMICO DE SCREENSHOTS --- */
+        .screenshot-container {
+            margin: 50px auto 80px auto;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .screenshot-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            scroll-snap-type: x mandatory;
+            padding: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-neon) var(--card-bg);
+            border-radius: 16px;
+        }
+
+        /* Customização da barra de rolagem para navegadores Webkit (Chrome/Safari) */
+        .screenshot-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        .screenshot-slider::-webkit-scrollbar-track {
+            background: var(--card-bg);
+            border-radius: 10px;
+        }
+        .screenshot-slider::-webkit-scrollbar-thumb {
+            background: var(--primary-neon);
+            border-radius: 10px;
+        }
+
+        .screenshot-card {
+            flex: 0 0 260px; /* Largura perfeita para simular a tela do smartphone */
+            scroll-snap-align: center;
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 3px solid #1f293d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .screenshot-card:hover {
+            transform: scale(1.03);
+            border-color: var(--primary-neon);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .slider-hint {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* --- RESTO DOS ESTILOS --- */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -171,14 +236,8 @@
             color: var(--primary-neon);
         }
 
-        .feature-card h3.orange-accent {
-            color: var(--secondary-neon);
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
+        .feature-card h3.orange-accent { color: var(--secondary-neon); }
+        .feature-card p { color: var(--text-muted); font-size: 1rem; }
 
         .steps-section {
             background-color: var(--card-bg);
@@ -188,101 +247,42 @@
             border: 1px solid rgba(255, 255, 255, 0.02);
         }
 
-        .step-item {
-            display: flex;
-            margin-bottom: 35px;
-            gap: 20px;
-        }
-
-        .step-item:last-child {
-            margin-bottom: 0;
-        }
-
+        .step-item { display: flex; margin-bottom: 35px; gap: 20px; }
+        .step-item:last-child { margin-bottom: 0; }
         .step-number {
             background: linear-gradient(135deg, var(--primary-neon) 0%, #0072ff 100%);
-            color: #0b0f19;
-            font-weight: 800;
-            font-size: 1.2rem;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            color: #0b0f19; font-weight: 800; font-size: 1.2rem;
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
-
-        .step-content h4 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-
-        .step-content p {
-            color: var(--text-muted);
-        }
+        .step-content h4 { font-size: 1.2rem; margin-bottom: 8px; }
+        .step-content p { color: var(--text-muted); }
 
         .specs-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
+            width: 100%; border-collapse: collapse; margin-top: 20px;
+            background-color: var(--card-bg); border-radius: 12px; overflow: hidden;
         }
-
-        .specs-table td {
-            padding: 16px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .specs-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .specs-label {
-            font-weight: 600;
-            color: var(--primary-neon);
-            width: 30%;
-        }
-
-        .specs-value {
-            color: var(--text-color);
-        }
+        .specs-table td { padding: 16px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .specs-table tr:last-child td { border-bottom: none; }
+        .specs-label { font-weight: 600; color: var(--primary-neon); width: 30%; }
+        .specs-value { color: var(--text-color); }
 
         .footer-cta {
-            text-align: center;
-            background: linear-gradient(135deg, #151d30 0%, #0b0f19 100%);
-            padding: 60px 20px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 80px;
+            text-align: center; background: linear-gradient(135deg, #151d30 0%, #0b0f19 100%);
+            padding: 60px 20px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05); margin-top: 80px;
         }
-
-        .footer-cta h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .footer-cta p {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
+        .footer-cta h2 { font-size: 2rem; margin-bottom: 15px; }
+        .footer-cta p { color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem; }
 
         footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 60px;
+            text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 60px;
         }
 
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
             .tagline { font-size: 1.1rem; }
             .step-item { flex-direction: column; gap: 10px; }
-            .specs-table width { width: 100%; }
             .specs-table td { display: block; width: 100%; }
             .specs-label { padding-bottom: 5px; }
         }
@@ -302,47 +302,68 @@
     </header>
 
     <main>
+        
+        <!-- SEÇÃO CARROSSEL DINÂMICO (SCREENSHOTS DO APLICATIVO) -->
+        <section id="app-screenshots">
+            <h2 class="section-title">Conheça a Interface do App</h2>
+            <div class="screenshot-container">
+                <div class="screenshot-slider">
+                    <div class="screenshot-card">
+                        <img src="Screenshot_20260612-085505_Koala Tnis Score.jpg" alt="Koala Tênis Score Tela">
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="tela inicial.jpg" alt="Koala Tênis Score Tela">
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="config partida.jpg" alt="Koala Tênis Score Tela">
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="placar.jpg" alt="Koala Tênis Score Tela">
+                    </div>
+                    <div class="screenshot-card">
+                        <img src="config blue.jpg" alt="Koala Tênis Score Tela">
+                    </div>                    
+                </div>
+                <div class="slider-hint">
+                    <span>↔️</span> Deslize para o lado para ver mais telas
+                </div>
+            </div>
+        </section>
+
         <!-- SEÇÃO: PRINCIPAIS DIFERENCIAIS -->
         <section id="features">
             <h2 class="section-title">Por que escolher o Koala Tênis Score?</h2>
             <div class="features-grid">
-                
                 <div class="feature-card">
                     <span class="feature-icon">🔌</span>
                     <h3>Botões Bluetooth (BLE)</h3>
                     <p>Pareie botões físicos portáteis (de pulso ou rede) e marque pontos com um clique direto da quadra. Chega de caminhar até o celular na grade!</p>
                 </div>
-
                 <div class="feature-card">
                     <span class="feature-icon">🗣️</span>
                     <h3 class="orange-accent">Anúncios de Voz Inteligentes</h3>
                     <p>O app narra o placar por áudio em tempo real ("15 a 30", "Deuce", "Vantagem") através do celular ou caixa de som Bluetooth. Foco total no rali.</p>
                 </div>
-
                 <div class="feature-card">
                     <span class="feature-icon">🧠</span>
                     <h3>Memória Inteligente</h3>
                     <p>Início super rápido! Suas preferências e nomes dos jogadores do último treino ficam salvos localmente. É abrir, entrar em quadra e jogar.</p>
                 </div>
-
                 <div class="feature-card">
                     <span class="feature-icon">🎨</span>
                     <h3 class="orange-accent">Design Premium Dark</h3>
                     <p>Interface de altíssimo contraste baseada em tons escuros e cores neon (ciano e laranja). Excelente leitura sob luz solar forte.</p>
                 </div>
-
                 <div class="feature-card">
                     <span class="feature-icon">🚫</span>
                     <h3>Anúncios Não Intrusivos</h3>
                     <p>Integração limpa via Google AdMob. Os anúncios respeitam sua concentração e nunca aparecem no meio de uma partida ou game.</p>
                 </div>
-
                 <div class="feature-card">
                     <span class="feature-icon">🔄</span>
                     <h3 class="orange-accent">Gestão de Quadra</h3>
                     <p>Controla automaticamente a virada de lados nas trocas de games e indica visualmente quem deve sacar e o lado correto (Vantagem ou Deuce).</p>
                 </div>
-
             </div>
         </section>
 
@@ -350,7 +371,6 @@
         <section id="how-it-works">
             <h2 class="section-title">Como Usar o Aplicativo</h2>
             <div class="steps-section">
-                
                 <div class="step-item">
                     <div class="step-number">1</div>
                     <div class="step-content">
@@ -358,7 +378,6 @@
                         <p>Defina os nomes dos competidores, o formato do jogo (Melhor de 3 ou 5 sets) e as regras de desempate (Tie-break e vantagem). Se tiver os botões BLE, conecte-os aqui.</p>
                     </div>
                 </div>
-
                 <div class="step-item">
                     <div class="step-number">2</div>
                     <div class="step-content">
@@ -366,7 +385,6 @@
                         <p>Pontue tocando diretamente nos grandes cards na tela ou simplesmente clique no seu botão físico portátil sem sair da sua posição de jogo.</p>
                     </div>
                 </div>
-
                 <div class="step-item">
                     <div class="step-number">3</div>
                     <div class="step-content">
@@ -374,7 +392,6 @@
                         <p>O app gerencia todas as transições complexas do tênis. Ao fechar a partida, uma tela de vitória consagra o grande campeão com estilo.</p>
                     </div>
                 </div>
-
             </div>
         </section>
 
